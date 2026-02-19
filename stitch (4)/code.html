@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Interactive Rewards Vault | FocusVault</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#b794f4", // Pastel Lavender
+                "secondary": "#4fd1c5", // Cool Cyan
+                "accent": "#9f7aea",
+                "background-dark": "#0a0f1d", // Deep Navy
+                "surface-dark": "#161c2e",
+                "border-dark": "#2d3748",
+              },
+              fontFamily: {
+                "display": ["Spline Sans", "sans-serif"]
+              },
+              borderRadius: {"DEFAULT": "0.75rem", "lg": "1.5rem", "xl": "2.25rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<style type="text/tailwindcss">
+        :root {
+            --pastel-lavender: #b794f4;
+            --cool-cyan: #4fd1c5;
+            --deep-navy: #0a0f1d;
+        }
+        body { 
+            font-family: 'Spline Sans', sans-serif; 
+            background: radial-gradient(circle at 50% 0%, #1a233a 0%, #0a0f1d 100%);
+        }
+        .scroll-container::-webkit-scrollbar {
+            height: 6px;
+        }
+        .scroll-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        .scroll-container::-webkit-scrollbar-thumb {
+            background: var(--pastel-lavender);
+            border-radius: 10px;
+        }
+        .coupon-lift {
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .coupon-lift:hover {
+            transform: translateY(-8px) rotateX(4deg);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2), 0 0 15px rgba(183, 148, 244, 0.2);
+            border-color: var(--cool-cyan);
+        }
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--cool-cyan);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.6;
+            box-shadow: 0 0 10px var(--cool-cyan);
+        }
+        .cyber-gradient {
+            background: linear-gradient(135deg, var(--pastel-lavender) 0%, var(--cool-cyan) 100%);
+        }
+        .text-glow-cyan {
+            text-shadow: 0 0 10px rgba(79, 209, 197, 0.5);
+        }
+    </style>
+</head>
+<body class="text-slate-100 min-h-screen font-display overflow-x-hidden">
+<div class="flex min-h-screen">
+<aside class="w-80 border-r border-white/5 bg-background-dark/80 backdrop-blur-xl p-8 hidden lg:flex flex-col sticky top-0 h-screen z-20">
+<div class="mb-10 flex items-center gap-3">
+<div class="w-10 h-10 cyber-gradient rounded flex items-center justify-center shadow-lg shadow-purple-500/20">
+<span class="material-icons text-background-dark font-bold">bolt</span>
+</div>
+<h1 class="text-2xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">FocusVault</h1>
+</div>
+<div class="bg-surface-dark/50 p-6 rounded-2xl border border-white/5 mb-8 relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary/10 rounded-full blur-2xl group-hover:bg-primary/20 transition-all"></div>
+<div class="flex justify-between items-center mb-4">
+<span class="text-[10px] text-secondary font-bold uppercase tracking-[0.2em]">Live Balance</span>
+<span class="material-symbols-outlined text-secondary text-sm">account_balance_wallet</span>
+</div>
+<div class="text-4xl font-bold mb-2 flex items-baseline gap-2">
+                12,450 
+                <span class="text-sm font-medium text-primary/60">FP</span>
+</div>
+<div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden mt-4">
+<div class="cyber-gradient h-full w-3/4 shadow-[0_0_15px_rgba(79,209,197,0.5)]"></div>
+</div>
+<p class="text-[11px] text-slate-500 mt-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+                550 FP more to reach Level 18
+            </p>
+</div>
+<div class="flex-grow">
+<h3 class="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-6">Global Ranking</h3>
+<div class="space-y-3">
+<div class="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/10 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent"></div>
+<span class="text-primary font-bold z-10">#42</span>
+<div class="flex-grow z-10">
+<p class="text-sm font-bold">Alex Rivers (You)</p>
+<p class="text-xs text-slate-500">84h Saved</p>
+</div>
+<span class="material-icons text-secondary text-sm z-10">bolt</span>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-xl hover:bg-white/5 transition-all border border-transparent hover:border-white/5 group">
+<span class="text-slate-600 font-bold group-hover:text-slate-400">#41</span>
+<div class="flex-grow">
+<p class="text-sm font-medium text-slate-400 group-hover:text-slate-200 transition-colors">Sarah Jenkins</p>
+<p class="text-xs text-slate-600">86h Saved</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-4 rounded-xl hover:bg-white/5 transition-all border border-transparent hover:border-white/5 group">
+<span class="text-slate-600 font-bold group-hover:text-slate-400">#40</span>
+<div class="flex-grow">
+<p class="text-sm font-medium text-slate-400 group-hover:text-slate-200 transition-colors">Mike Chen</p>
+<p class="text-xs text-slate-600">91h Saved</p>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-auto pt-6 border-t border-white/5 flex items-center gap-4">
+<div class="relative">
+<img class="w-10 h-10 rounded-full border border-primary/50" data-alt="User profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDX5T4HL-B8SfNJY1wCUbdDozWkU8W81WoFJKR_5XXfqo0BAgIQgvanL83E1sFhKuw_M9TvZk7zQ3vz4XknaHbcvlHDg9H7tGCRDfIrBrtluvFS3ob47z52gGCB6ZxBT6i8co9zX9id8rit793DqIvhiS1xLLeZmQ7SWqCo22RJbk1qZZjoxczprS9-M6TadgUQPxDypgUL9tndeAhJ4PzAO0nitXFgS0rSuIgsk2xjtVJuifsZe4e_I68mzpYUN8WQUVGgGDXolvg"/>
+<div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-secondary rounded-full border-2 border-background-dark"></div>
+</div>
+<div>
+<p class="text-sm font-bold">Alex Rivers</p>
+<p class="text-[10px] text-primary font-bold uppercase tracking-wider">Focus Master</p>
+</div>
+<button class="ml-auto text-slate-600 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</aside>
+<main class="flex-grow p-6 lg:p-12 overflow-y-auto relative">
+<div class="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(circle_at_70%_20%,rgba(183,148,244,0.05)_0%,transparent_50%)] pointer-events-none"></div>
+<header class="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-16 relative z-10">
+<div>
+<h2 class="text-5xl font-bold mb-3 tracking-tight">Rewards <span class="text-secondary">Vault</span></h2>
+<p class="text-slate-400 text-lg">Convert your focus into high-tier digital assets.</p>
+</div>
+<div class="relative max-w-md w-full">
+<span class="material-symbols-outlined absolute left-5 top-1/2 -translate-y-1/2 text-primary/50">search</span>
+<input class="w-full bg-white/5 border-white/10 rounded-full py-4 pl-14 pr-8 text-slate-100 focus:ring-2 focus:ring-primary/30 focus:border-primary/50 placeholder:text-slate-600 transition-all backdrop-blur-md" placeholder="Search marketplace..." type="text"/>
+</div>
+</header>
+<section class="mb-20 relative">
+<div class="flex items-center justify-between mb-8 px-2">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">inventory_2</span>
+<h3 class="text-2xl font-bold tracking-tight uppercase text-sm tracking-[0.1em]">Featured Containers</h3>
+</div>
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 transition-colors">
+<span class="material-symbols-outlined text-sm text-secondary">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="scroll-container flex overflow-x-auto gap-8 pb-10 -mx-4 px-4 snap-x">
+<div class="min-w-[340px] md:min-w-[400px] snap-center">
+<div class="bg-surface-dark/40 border border-primary/20 rounded-[2.5rem] p-8 relative group cursor-pointer overflow-hidden backdrop-blur-sm">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="w-full aspect-[4/3] bg-background-dark/80 rounded-3xl mb-8 flex items-center justify-center relative overflow-hidden border border-white/5">
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-8xl text-primary drop-shadow-[0_0_15px_rgba(183,148,244,0.4)]">card_giftcard</span>
+</div>
+<div class="absolute top-4 left-4">
+<span class="bg-primary/20 backdrop-blur-md text-primary text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest border border-primary/20">Active</span>
+</div>
+</div>
+<h4 class="text-2xl font-bold mb-2 tracking-tight group-hover:text-primary transition-colors">Legendary Focus Box</h4>
+<p class="text-sm text-slate-500 mb-8 leading-relaxed">High-tier tech hardware discounts &amp; exclusive lifestyle subscriptions.</p>
+<div class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-secondary/10 flex items-center justify-center">
+<span class="material-icons text-secondary text-xs">star</span>
+</div>
+<span class="text-xs font-bold text-slate-400">Level 15+</span>
+</div>
+<span class="text-[10px] font-black text-secondary tracking-widest uppercase">Available Now</span>
+</div>
+<button class="w-full cyber-gradient text-background-dark font-black py-5 rounded-2xl transition-all hover:shadow-[0_0_25px_rgba(79,209,197,0.4)] flex items-center justify-center gap-3 active:scale-[0.98]">
+<span class="material-symbols-outlined">auto_awesome</span>
+                            OPEN CONTAINER
+                        </button>
+</div>
+</div>
+<div class="min-w-[340px] md:min-w-[400px] snap-center">
+<div class="bg-surface-dark/20 border border-white/5 rounded-[2.5rem] p-8 relative group transition-all opacity-80 hover:opacity-100">
+<div class="particle top-1/4 left-1/4 opacity-40 blur-[1px]"></div>
+<div class="particle bottom-1/3 right-1/4 opacity-60 blur-[2px]"></div>
+<div class="particle top-1/2 right-1/3 opacity-30"></div>
+<div class="particle bottom-10 left-10 opacity-50 blur-[1px]"></div>
+<div class="w-full aspect-[4/3] bg-background-dark/40 rounded-3xl mb-8 flex items-center justify-center border border-white/5 relative overflow-hidden group">
+<span class="material-symbols-outlined text-8xl text-slate-700/50 group-hover:text-slate-600 transition-colors">lock</span>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark to-transparent opacity-60"></div>
+</div>
+<h4 class="text-2xl font-bold mb-2 tracking-tight text-slate-500">Daily Streak Crate</h4>
+<p class="text-sm text-slate-600 mb-8 leading-relaxed">Unlock by maintaining your 5-day focus streak.</p>
+<div class="space-y-4">
+<div class="flex justify-between text-[10px] font-black uppercase tracking-widest text-slate-500">
+<span>Streak Progress</span>
+<span class="text-secondary">3 / 5 Days</span>
+</div>
+<div class="w-full bg-white/5 h-2 rounded-full overflow-hidden">
+<div class="bg-slate-700 h-full w-[60%] shadow-[0_0_10px_rgba(255,255,255,0.05)]"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="min-w-[340px] md:min-w-[400px] snap-center">
+<div class="bg-surface-dark/20 border border-white/5 rounded-[2.5rem] p-8 relative group transition-all opacity-80 hover:opacity-100">
+<div class="particle top-10 right-20 opacity-40"></div>
+<div class="particle bottom-20 left-1/2 opacity-30 blur-[2px]"></div>
+<div class="w-full aspect-[4/3] bg-background-dark/40 rounded-3xl mb-8 flex items-center justify-center border border-white/5 relative overflow-hidden">
+<span class="material-symbols-outlined text-8xl text-slate-700/50">lock_clock</span>
+</div>
+<h4 class="text-2xl font-bold mb-2 tracking-tight text-slate-500">Weekend Warrior</h4>
+<p class="text-sm text-slate-600 mb-8 leading-relaxed">Reward for 10 hours of screen-free weekends.</p>
+<div class="space-y-4">
+<div class="flex justify-between text-[10px] font-black uppercase tracking-widest text-slate-500">
+<span>Time Saved</span>
+<span class="text-primary">4.2 / 10h</span>
+</div>
+<div class="w-full bg-white/5 h-2 rounded-full overflow-hidden">
+<div class="bg-slate-700 h-full w-[42%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="relative z-10">
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-10 gap-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">local_activity</span>
+<h3 class="text-2xl font-bold tracking-tight uppercase text-sm tracking-[0.1em]">Redeemable Coupons</h3>
+</div>
+<div class="flex p-1 bg-white/5 rounded-full border border-white/5">
+<button class="px-6 py-2 rounded-full bg-primary text-background-dark text-[10px] font-black tracking-widest uppercase transition-all">ALL</button>
+<button class="px-6 py-2 rounded-full text-slate-500 hover:text-slate-300 text-[10px] font-black tracking-widest uppercase transition-all">TECH</button>
+<button class="px-6 py-2 rounded-full text-slate-500 hover:text-slate-300 text-[10px] font-black tracking-widest uppercase transition-all">STYLE</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="coupon-lift bg-surface-dark/40 border border-white/10 rounded-3xl p-8 flex flex-col xl:flex-row gap-8 items-start xl:items-center relative group">
+<div class="w-24 h-24 bg-white/10 rounded-2xl flex items-center justify-center p-4 shrink-0 border border-white/5 group-hover:bg-white/20 transition-colors">
+<img class="object-contain max-h-full invert opacity-80" data-alt="Athletic brand" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqkW6hZEtOJSoy76tT_Kf4l7c9V3OWNf1AbTDX81eUwJW1y6WyhUtvy9aYuccM0achuOgf04PHYu3mFBpq874RfO1ZQ9HzGBAud6Z8isnWsGc63M1I1eCr42VKFeaSkYwlULCbV0i3OiRVTJVRP75vl28M6_uF6amF2iNhoWr61mB3r-N3Viivm4Q9e39_o6PvHlEkioVxWlmhU5846fjH6Cm2D_DuCXuWQ_Y_XhIjYxMNxA5ZSG3VTvrP3e8Jv_utlbVJamQmQJ8"/>
+</div>
+<div class="flex-grow space-y-3">
+<div class="flex flex-wrap items-center gap-3">
+<h4 class="text-xl font-bold">20% Off Athletics</h4>
+<span class="bg-secondary/20 text-secondary text-[9px] font-black px-2 py-0.5 rounded border border-secondary/20 uppercase tracking-tighter">Verified</span>
+</div>
+<p class="text-sm text-slate-400 leading-relaxed">Earn this by maintaining Level 10 focus and spending 15 Focus Points.</p>
+<div class="flex items-center gap-6 pt-2">
+<div class="flex items-center gap-2 text-[10px] font-bold text-slate-500">
+<span class="material-symbols-outlined text-[16px] text-primary">schedule</span>
+                                25h SAVED
+                            </div>
+<div class="flex items-center gap-2 text-[10px] font-bold text-slate-500">
+<span class="material-symbols-outlined text-[16px] text-primary">verified_user</span>
+                                LVL 10
+                            </div>
+</div>
+</div>
+<button class="shrink-0 cyber-gradient text-background-dark font-black px-8 py-4 rounded-xl hover:opacity-90 transition-all w-full xl:w-auto text-xs tracking-widest uppercase shadow-lg shadow-cyan-500/10">
+                        REDEEM
+                    </button>
+</div>
+<div class="coupon-lift bg-surface-dark/40 border border-white/10 rounded-3xl p-8 flex flex-col xl:flex-row gap-8 items-start xl:items-center relative group">
+<div class="w-24 h-24 bg-white/10 rounded-2xl flex items-center justify-center p-4 shrink-0 border border-white/5 group-hover:bg-white/20 transition-colors">
+<img class="object-contain max-h-full invert opacity-80" data-alt="Streaming service" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbK1YSJf2jOhqZZDbnzI-DzCadRWQTmjLA5jScD597UvQCPZWQSaTQaqEleQKbzwBL29fWnRBv7grqwzU7vHFvj-XNitkmjpJfxfqseLTwUKYF8Njm-RJLF_urd3yvgYy_Wd7RlkV11fgBJRWKV_6er1Il9uzx8cE5NEp8Oa7iodK_vqUpeukWz3ynh-gtYB0fQaIoCxHSUX9JjBpJseiaaiyGbgQ3h83scymH4j8kVXFsAKscZM4fUiMymyAkogEwDB8fhKIYnZU"/>
+</div>
+<div class="flex-grow space-y-3">
+<div class="flex flex-wrap items-center gap-3">
+<h4 class="text-xl font-bold">1 Mo. Music Premium</h4>
+<span class="bg-primary/20 text-primary text-[9px] font-black px-2 py-0.5 rounded border border-primary/20 uppercase tracking-tighter">Legendary</span>
+</div>
+<p class="text-sm text-slate-400 leading-relaxed">Perfect Week streak bonus. Transform silence into focus soundtracks.</p>
+<div class="flex items-center gap-6 pt-2">
+<div class="flex items-center gap-2 text-[10px] font-bold text-slate-500">
+<span class="material-symbols-outlined text-[16px] text-secondary">monetization_on</span>
+                                500 FP
+                            </div>
+<div class="flex items-center gap-2 text-[10px] font-bold text-slate-500">
+<span class="material-symbols-outlined text-[16px] text-secondary">local_fire_department</span>
+                                7 DAY STREAK
+                            </div>
+</div>
+</div>
+<button class="shrink-0 cyber-gradient text-background-dark font-black px-8 py-4 rounded-xl hover:opacity-90 transition-all w-full xl:w-auto text-xs tracking-widest uppercase shadow-lg shadow-cyan-500/10">
+                        REDEEM
+                    </button>
+</div>
+<div class="bg-surface-dark/10 border border-white/5 rounded-3xl p-8 flex flex-col xl:flex-row gap-8 items-start xl:items-center relative overflow-hidden grayscale opacity-40">
+<div class="w-24 h-24 bg-white/5 rounded-2xl flex items-center justify-center p-4 shrink-0 border border-white/5">
+<img class="object-contain max-h-full invert opacity-40" data-alt="Technology logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBom8R12VIDJpV_2dwfefwWBuCFwRkQejs8E0R7KQttUW4h6IG8KZgSDSDrhhhfRVjbWN22PFUbFhWQemr-45mx6BothrhgGboBva7HKTPTcmGNcyDChLRcDCV7Ly6dJJVDNmkn0VRXSfTFILuo4fHfLjD1Od97u5GLAEnthS2XeTclgJnxi2MHDeKR2682jJNv54F9aBjUfmoKaBR5oE4vVz-8hC27ZCslk0q1LR-5Di34gxpkSLWBg2PKZxeFP_IYbK9UJakpsRg"/>
+</div>
+<div class="flex-grow space-y-3">
+<h4 class="text-xl font-bold text-slate-500">$10 Tech Gift Card</h4>
+<p class="text-sm text-slate-600">Locked. Requires 2,500 FP and Master Level 25 achievement status.</p>
+<div class="flex items-center gap-6 pt-2">
+<div class="flex items-center gap-2 text-[10px] font-bold text-slate-600">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+                                2,500 FP
+                            </div>
+<div class="flex items-center gap-2 text-[10px] font-bold text-slate-600">
+<span class="material-symbols-outlined text-[16px]">stars</span>
+                                LVL 25
+                            </div>
+</div>
+</div>
+<button class="shrink-0 bg-slate-800 text-slate-500 font-black px-8 py-4 rounded-xl cursor-not-allowed w-full xl:w-auto text-xs tracking-widest uppercase" disabled="">
+                        LOCKED
+                    </button>
+</div>
+<div class="coupon-lift bg-surface-dark/40 border border-white/10 rounded-3xl p-8 flex flex-col xl:flex-row gap-8 items-start xl:items-center relative group">
+<div class="w-24 h-24 bg-white/10 rounded-2xl flex items-center justify-center p-4 shrink-0 border border-white/5 group-hover:bg-white/20 transition-colors">
+<img class="object-contain max-h-full invert opacity-80" data-alt="Coffee shop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVMR0xfe67qWKzrqgOr2D8jkZ26vFRSGHi_2bnt-8DhBbVW9FRMZlppioN4y4Ho0EIdOHHVk3Tc-pA92AHWZ7zyAAYX0esffSXEYK1u_KeyEg-sDy3rT1H2b1y_qNVjRPmfxlw8aNBpCM9U4NXZUM0ra9OVPVEfa1vUPKvbIDIgWoonyMHs1uKF6g1NKqFiaUVXMvvrVb8-740rnvrD9TQevajJN9DXeEtYkvrugCcEiItYitJH3NVSegjkx1VH79ox9hKEAjLsvY"/>
+</div>
+<div class="flex-grow space-y-3">
+<div class="flex flex-wrap items-center gap-3">
+<h4 class="text-xl font-bold">Free Cold Brew Voucher</h4>
+<span class="bg-secondary/20 text-secondary text-[9px] font-black px-2 py-0.5 rounded border border-secondary/20 uppercase tracking-tighter">Rare</span>
+</div>
+<p class="text-sm text-slate-400 leading-relaxed">Morning meditation session reward. Valid at all partner cafes.</p>
+<div class="flex items-center gap-6 pt-2">
+<div class="flex items-center gap-2 text-[10px] font-bold text-slate-500">
+<span class="material-symbols-outlined text-[16px] text-primary">wb_sunny</span>
+                                5 SESSIONS
+                            </div>
+</div>
+</div>
+<button class="shrink-0 cyber-gradient text-background-dark font-black px-8 py-4 rounded-xl hover:opacity-90 transition-all w-full xl:w-auto text-xs tracking-widest uppercase shadow-lg shadow-cyan-500/10">
+                        REDEEM
+                    </button>
+</div>
+</div>
+</section>
+</main>
+</div>
+<div class="lg:hidden fixed bottom-6 right-6 cyber-gradient text-background-dark px-6 py-4 rounded-full shadow-2xl flex items-center gap-3 z-50 font-black border border-white/20">
+<span class="material-icons">bolt</span>
+<span>12,450 FP</span>
+</div>
+
+</body></html>
